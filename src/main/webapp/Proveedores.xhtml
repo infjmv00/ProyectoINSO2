@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="styles.css" />
+        <h:form>
+            <p:outputLabel class="headline_class" value ="CIF PROVEEDOR "/>
+            <p:inputText value="#{altaProveedorController.proveedor.cifprov}" />
+            
+            <p:outputLabel class="headline_class" value ="NOMBRE PROVEEDOR "/>
+            <p:inputText value="#{altaProveedorController.proveedor.nombre}" />
+            
+            <p:outputLabel class="headline_class" value ="APELLIDOS PROVEEDOR "/>
+            <p:inputText value="#{altaProveedorController.proveedor.apellidos}" />
+            
+            <p:outputLabel class="headline_class" value ="DIRECCION PROVEEDOR "/>
+            <p:inputText value="#{altaProveedorController.proveedor.direccion}" />
+            
+            <p:outputLabel class="headline_class" value ="TELEFONO PROVEEDOR "/>
+            <p:inputText value="#{altaProveedorController.proveedor.telefono}" />
+            
+            <p:outputLabel class="headline_class" value ="EMAIL "/>
+            <p:inputText value="#{altaProveedorController.proveedor.email}" />
+            
+            <p:selectBooleanCheckbox value="#{altaProveedorController.proveedor.activo}" itemLabel="Activo"/>
+                       
+            <p:commandButton  value ="insertar" actionListener="#{altaProveedorController.insertarProveedor()}"/>
+            
+            
+            
+        
+    
+            
+        </h:form>
+    </h:body>
+</html>

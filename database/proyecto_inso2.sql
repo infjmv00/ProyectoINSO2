@@ -2,7 +2,9 @@ create database GESTEMPRESARIAL;
 use GESTEMPRESARIAL;
 
 create table  tblDatos_Empresa(
-CIF_Empresa char(5) NOT NULL PRIMARY KEY,
+
+IdEmpresa int NOT NULL AUTO_INCREMENT primary key,
+CIF_Empresa CHAR(20) NOT NULL,
 nombre_empresa char(50) NOT NULL,
 direccion_empresa char(50) NOT NULL,
 Telefonoprov bigint NOT NULL,
@@ -24,8 +26,10 @@ CONSTRAINT FK_tblMateriales_tbFamilia FOREIGN KEY (IdFamilia) REFERENCES tblFami
  
 
 
+
 create table tblProveedores
-(CIFprov char(15) NOT NULL PRIMARY KEY,
+( IdProveedor int NOT NULL AUTO_INCREMENT primary key,
+CIFprov char(15) NOT NULL,
 nombreprov char(20) NOT NULL,
 apellidosprov char(30) NOT NULL,
 direccion char(50) NOT NULL,
@@ -34,22 +38,33 @@ e_mail char(50),
 activoprov bit);
 
 create table tblMaterialProveedor
-(CIFpro char(15) NOT NULL,
+(IdProveedor int NOT NULL,
+CIFpro char(15) NOT NULL,
 codemat char(5) NOT NULL,
 fecha date NOT NULL,
 unidades smallint NOT NULL,
 importe_ud integer NOT NULL,
 activo bit,
 constraint PK_matprov primary key  (CIFpro,codemat, fecha),
-constraint FK_TMP_prov foreign key (CIFpro) references tblProveedores(CIFprov) ON UPDATE CASCADE,
+constraint FK_TMP_prov foreign key (idProveedor) references tblProveedores(IdProveedor) ON UPDATE CASCADE,
 constraint FK_TMP_Mat foreign key(codemat) references tblMateriales(codigo_material) ON UPDATE CASCADE) ;
 
 
+create table tblRoles
+
+(
+IdRol int(11) NOT NULL AUTO_INCREMENT,
+TipoRol char(1) NOT NULL,
+descripcion varchar(100) NOT NULL,
+PRIMARY KEY (IdRol)
+
+);
 
 create table tblTrabajadores(
 
 NIFtrab char(15) NOT NULL UNIQUE PRIMARY KEY,
-CIF_Empresa char(5) NOT NULL,
+IdRol int(11) NOT NULL,
+id_Empresa int NOT NULL,
 Fecha date NOT NULL,
 usuario char(30),
 contrasenya char(10),
@@ -61,7 +76,12 @@ e_mailtrab char(50),
 Fecha_inicio date NOT NULL,
 fecha_fin date NOT NULL,
 activotrab bit,
-constraint FK_tblTrabajadores_CIFEMPRESA foreign key(CIF_empresa) references tblDatos_Empresa (CIF_Empresa) ON UPDATE CASCADE);
+constraint FK_tblTrabajadores_CIFEMPRESA foreign key(id_empresa) references tblDatos_Empresa (IdEmpresa) ON UPDATE CASCADE,
+constraint FK_tblTrabajadores_IDROL foreign key (IdRol) references tblRoles (IdRol) ON UPDATE CASCADE);
+
+
+
+
 
 create table tblSueldos(
 NIF_trab char(15) NOT NULL,
@@ -159,5 +179,3 @@ constraint FK_tblTrabEj_trabajador foreign key (trabajador) references tblTrabaj
 
   
   CONSTRAINT FK_tblstockproductos_tblproductos FOREIGN KEY (IdMaterial) REFERENCES tblMateriales (codigo_material));
-
-
